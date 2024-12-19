@@ -14,13 +14,13 @@ services:
         condition: service_healthy
     environment:
       - NODE_ENV=production
-      - DATABASE_HOST=db
+      - DATABASE_HOST=localhost
       - DATABASE_PORT=3306
       - DATABASE_USERNAME=root
       - DATABASE_PASSWORD=root
       - DATABASE_NAME=tmbd-db
-      - TMDB_API_KEY=${TMDB_API_KEY}
-      - JWT_SECRET=${JWT_SECRET}
+      - TMDB_API_KEY=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NmM0MTFkMzlmOTJjOWM0MDk3YTY5NGNhMjYzYjE3NCIsIm5iZiI6MTcxMjQ3OTk3Ny4xMiwic3ViIjoiNjYxMjVlZTliMzM5MDMwMTdiNmZmMDc0Iiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.v5EwOc1lyVJMxGE74lSo9qd6oVaYNVGNN7ejCc3tOI8
+      - JWT_SECRET=eyJhbGciOiJIUzI1NiJ9
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - PORT = 8080
@@ -36,14 +36,14 @@ services:
   db:
     image: mysql:8.0
     ports:
-      - "3307:3307"
+      - "3306:3306"
     environment:
       - MYSQL_DATABASE=tmbd-db
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p","root"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
       interval: 10s
       timeout: 5s
       retries: 5

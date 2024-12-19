@@ -3,7 +3,7 @@ FROM node:18-alpine AS builder
 
 RUN npm install -g pnpm
 
-WORKDIR /app
+WORKDIR /tmdb-api
 
 COPY package.json pnpm-lock.yaml ./
 
@@ -18,11 +18,11 @@ FROM node:18-alpine
 
 RUN npm install -g pnpm
 
-WORKDIR /app
+WORKDIR /tmdb-api
 
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/pnpm-lock.yaml ./
+COPY --from=builder /tmdb-api/dist ./dist
+COPY --from=builder /tmdb-api/package.json ./
+COPY --from=builder /tmdb-api/pnpm-lock.yaml ./
 
 RUN pnpm install --prod --frozen-lockfile
 
@@ -32,6 +32,6 @@ HEALTHCHECK --interval=30s --timeout=3s \
 
 USER node
 
-EXPOSE 7001
+EXPOSE 8080
 
 CMD ["node", "dist/main"] 
