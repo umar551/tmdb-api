@@ -17,8 +17,8 @@ services:
       - DATABASE_HOST=db
       - DATABASE_PORT=3306
       - DATABASE_USERNAME=root
-      - DATABASE_PASSWORD=omernaeem
-      - DATABASE_NAME=crud-mysql
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=tmbd-db
       - TMDB_API_KEY=${TMDB_API_KEY}
       - JWT_SECRET=${JWT_SECRET}
       - REDIS_HOST=redis
@@ -38,7 +38,7 @@ services:
     ports:
       - "3307:3307"
     environment:
-      - MYSQL_DATABASE=tmdb-db
+      - MYSQL_DATABASE=tmbd-db
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - mysql_data:/var/lib/mysql
